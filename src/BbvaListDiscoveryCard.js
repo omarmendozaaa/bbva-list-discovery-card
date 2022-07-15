@@ -43,7 +43,15 @@ export class BbvaListDiscoveryCard extends LitElement {
       getComponentSharedStyles('bbva-list-discovery-card-shared-styles'),
     ];
   }
-
+  _getMovieIdEvent(item){
+    this.dispatchEvent(
+      new CustomEvent('get-id-movie-event', {
+        bubbles: true,
+        composed: true,
+        detail: item
+      })
+    );
+  }
   // Define a template
   render() {
     return html`
@@ -52,7 +60,7 @@ export class BbvaListDiscoveryCard extends LitElement {
           (card, index) => html`
           <div class="row">
             ${index % 2 == 0 ? html`<div class="col-md-1"></div>` : html``}
-            <div class="col-md-11"><bbva-movie-card-bs .movie=${card} .isextended=${true}></bbva-movie-card-bs></div>
+            <div class="col-md-11"><bbva-movie-card-bs .movie=${card} .isextended=${true} @id-movie-event=${(e) =>this._getMovieIdEvent(e.detail)}></bbva-movie-card-bs></div>
           </div>
             `
             )}
